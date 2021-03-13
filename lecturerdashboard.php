@@ -44,7 +44,7 @@ include("auth_session.php");
 </head>
 <body>
     
-    <div class="container mt-4">
+    <div class="container mt-5">
     <h1>Lecturer</h1>
         <div class="row top">
             <div class="col-sm-3">
@@ -78,7 +78,7 @@ include("auth_session.php");
         </div>
 
 
-        <div class="row">
+        <div class="row mt-5">
             
             <div class="col-md-4 mt-4">
                 <h2>ADD A NEW COURSE</h2>
@@ -92,9 +92,27 @@ include("auth_session.php");
                 </form>
             </div>
 
-            <div class="col-md-8">
+            <div class="col-md-8 d-flex mt-5">
+            
+                <div class="center mx-auto">
 
-                
+                <h1>MY COURSES</h1>
+                    <?php
+
+                        $query = "SELECT * FROM courses";
+                        $result = mysqli_query($con, $query) or die(mysql_error());
+                        
+                        $rows = $result->num_rows;
+                        for ($j = 0 ; $j < $rows ; ++$j)
+                        {
+                        $result->data_seek($j);
+                        $row = $result->fetch_array(MYSQLI_ASSOC);
+                        echo $row['title'] . "<br>";
+                        }
+                    ?>
+
+                </div>
+
             </div>
 
         </div>
