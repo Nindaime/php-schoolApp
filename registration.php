@@ -42,6 +42,7 @@
         <input type="password" class="login-input" name="password" placeholder="Password">
         <input type="submit" name="submit" value="Register" class="login-button">
         <p class="link">Already have an account? <a href="login.php">Login here</a></p>
+        <p class="link"><a href="index.php">RETURN TO HOME PAGE</a></p>
     </form>
 <?php
     }

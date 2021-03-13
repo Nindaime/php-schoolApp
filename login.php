@@ -39,6 +39,7 @@
         <input type="password" class="login-input" name="password" placeholder="Password"/>
         <input type="submit" value="Login" name="submit" class="login-button"/>
         <p class="link">Don't have an account? <a href="registration.php">Registration Now</a></p>
+        <p class="link"><a href="index.php">RETURN TO HOME PAGE</a></p>
   </form>
 <?php
     }
