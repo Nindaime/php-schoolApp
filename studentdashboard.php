@@ -1,6 +1,7 @@
 <?php
 //include auth_session.php file on all user panel pages
 include("auth_session.php");
+require('db.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -43,6 +44,42 @@ include("auth_session.php");
                     </h4>
                 </div>
             </div>
+        </div>
+
+        <div class="row mt-5">
+
+        <div class="col-md-5 offset-md-1 mt-5">
+            <h2>All Courses</h2>
+            <?php
+                        $query = "SELECT * FROM courses";
+                        $result = mysqli_query($con, $query) or die(mysql_error());
+                        
+                        $rows = $result->num_rows;
+                        for ($j = 0 ; $j < $rows ; ++$j)
+                        {
+                        $result->data_seek($j);
+                        $row = $result->fetch_array(MYSQLI_ASSOC);
+                        echo $row['title'] . "<br>";
+                        }
+            ?>
+
+        </div>
+        <div class="col-md-5 offset-md-1 mt-5">
+        <h2>My Courses</h2>
+            <?php
+                        $username = $_SESSION['username'];
+                        $query = "SELECT * FROM courses WHERE user='$username'";
+                        $result = mysqli_query($con, $query) or die(mysql_error());
+                        
+                        $rows = $result->num_rows;
+                        for ($j = 0 ; $j < $rows ; ++$j)
+                        {
+                        $result->data_seek($j);
+                        $row = $result->fetch_array(MYSQLI_ASSOC);
+                        echo $row['title'] . "<br>";
+                        }
+            ?>
+        </div>
         </div>
     </div>
 </body>

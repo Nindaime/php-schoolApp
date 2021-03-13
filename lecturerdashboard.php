@@ -98,8 +98,8 @@ include("auth_session.php");
 
                 <h1>MY COURSES</h1>
                     <?php
-
-                        $query = "SELECT * FROM courses";
+                        $username = $_SESSION['username'];
+                        $query = "SELECT * FROM courses WHERE user='$username'";
                         $result = mysqli_query($con, $query) or die(mysql_error());
                         
                         $rows = $result->num_rows;
