@@ -123,3 +123,10 @@ a:hover {
     background-color: #f4623a;
     color: white;
 }
+
+
+/* Dashboard page */
+.dashboard ul {
+    display: flex; 
+    list-style:none;
+}

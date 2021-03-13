@@ -23,8 +23,27 @@
         $rows = mysqli_num_rows($result);
         if ($rows == 1) {
             $_SESSION['username'] = $username;
+            $query    = "SELECT position FROM `users` WHERE username='$username'
+                     AND password='" . md5($password) . "'";
+            $result = mysqli_query($con, $query) or die(mysql_error());
+            
             // Redirect to user dashboard page
-            header("Location: dashboard.php");
+            // header("Location: dashboard.php");
+            if (mysqli_num_rows($result) > 0) {
+                // output data of each row
+                while($row = mysqli_fetch_assoc($result)) {
+                  echo $row["position"]. "<br>";
+                  if($row["position"] == "lecturer"){
+                    header("Location: lecturerdashboard.php");
+                  }
+                  if($row["position"] == "student"){
+                    header("Location: studentdashboard.php");
+                  }
+                }
+              } else {
+                echo "0 results";
+              }
+            
         } else {
             echo "<div class='form'>
                   <h3>Incorrect Username/password.</h3><br/>

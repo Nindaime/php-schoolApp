@@ -19,8 +19,7 @@ h1.login-title {
     border: 1px solid #ccc;
     padding: 10px;
     margin-bottom: 25px;
-    height: 25px;
-    width: calc(100% - 23px);
+    width: 100%;
 }
 .login-input:focus {
     border-color:#6e8095;
