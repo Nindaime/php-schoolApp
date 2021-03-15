@@ -5,6 +5,7 @@ include("auth_session.php");
     require('db.php');
     // When form submitted, insert values into the database.
     if (isset($_REQUEST['title'])) {
+        $result = 0;
         $username = $_SESSION['username'];
         // removes backslashes
         $title = stripslashes($_REQUEST['title']);
@@ -38,7 +39,7 @@ include("auth_session.php");
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Dashboard - Client area</title>
+    <title>Dashboard</title>
     <link href="bootstrap.min.css?<?=filemtime("bootstrap.min.css")?>" rel="stylesheet" type="text/css" />
     <link href="stylee.css?<?=filemtime("stylee.css")?>" rel="stylesheet" type="text/css" />
 </head>
@@ -88,7 +89,7 @@ include("auth_session.php");
                         <input type="text" name="title" class="form-control" id="title" placeholder="Course Title" required>
                     </div>
                     
-                    <button type="submit" class="btn btn-primary"><a style="color: white" href="lecturerdashboard.php">Submit</a></button>
+                    <button type="submit" name="submit" class="btn btn-primary"><a style="color: white">Submit</a></button>
                 </form>
             </div>
 
@@ -107,7 +108,7 @@ include("auth_session.php");
                         {
                         $result->data_seek($j);
                         $row = $result->fetch_array(MYSQLI_ASSOC);
-                        echo $row['title'] . "<br>";
+                        echo $row['title'] . '<a href="topicsform.php"> ADD TOPIC</a>' . "<br>";
                         }
                     ?>
 

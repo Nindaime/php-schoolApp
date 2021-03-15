@@ -7,7 +7,7 @@ require('db.php');
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Dashboard - Client area</title>
+    <title>Dashboard </title>
     <link href="bootstrap.min.css?<?=filemtime("bootstrap.min.css")?>" rel="stylesheet" type="text/css" />
     <link href="stylee.css?<?=filemtime("stylee.css")?>" rel="stylesheet" type="text/css" />
 </head>
