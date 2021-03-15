@@ -8,7 +8,7 @@ body {
 
 
 .navbar {
-    background-color: transparent !important;
+    background-color: purple !important;
     position: fixed;
     top: 0;
     z-index: 10;
@@ -16,27 +16,28 @@ body {
 
 nav a {
     font-weight: bold;
+    color:white !important;
 }
 
 
 #cover {
     padding-top: 10rem;
     padding-bottom: calc(10rem - 4.5rem);
-    background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%), url("../images/bg-masthead.jpg");
+    background-color: white;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-size: cover;
 
     text-align: center !important;
-    color: white;
+    color: purple;
 }
 
 
 hr {
     max-width: 3.25rem;
     border-width: 0.2rem;
-    border-color: #f4623a;
+    border-color: purple;
 }
 
 button {
@@ -46,7 +47,7 @@ button {
     text-transform: uppercase;
     border: none;
     border-radius: 10em;
-    background-color: #f4623a;
+    background-color: purple;
     color: white;
 }
 
@@ -64,6 +65,10 @@ button {
     margin: auto;
 }
 
+.text a:hover, .nav-link:hover {
+    color: rgb(124, 27, 221) !important;
+}
+
 
 .about-text hr {
     border-color: white !important;
@@ -74,16 +79,16 @@ button {
 .contact {
     text-align: center;
     background-size: cover;
-    background-color: white;
+    background-color: rgb(197, 125, 197);
     background-attachment: scroll;
-    color: black;
+    color: white;
 }
 .contact a {
     color: white;
 }
 
 .contact p {
-    color: black;
+    color: white;
     font-size: larger;
 }
 
@@ -92,7 +97,7 @@ button {
     font-size: larger;
 }
 .tt a{
-    color: #f4623a !important;
+    color: white !important;
 }
 
 
@@ -106,23 +111,17 @@ a:hover {
 }
 .contact a:hover {
     /* text-decoration: none; */
-    color: #f4623a;
+    color: purple;
 }
 
-#contacting {
-    padding-top: 10rem;
-    padding-bottom: calc(10rem - 4.5rem);
-    background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%), url("../images/con-bg.png");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: scroll;
-    background-size: cover;
-}
+
 .footer {
     text-align: center;
-    background-color: #f4623a;
-    color: white;
+    background-color: white;
+    color: purple;
+    font-weight: bold;
 }
+
 
 
 /* Dashboard page */
