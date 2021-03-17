@@ -101,6 +101,7 @@ include("auth_session.php");
                     <?php
                         $username = $_SESSION['username'];
                         $query = "SELECT * FROM courses WHERE user='$username'";
+                        
                         $result = mysqli_query($con, $query) or die(mysql_error());
                         
                         $rows = $result->num_rows;
@@ -108,7 +109,13 @@ include("auth_session.php");
                         {
                         $result->data_seek($j);
                         $row = $result->fetch_array(MYSQLI_ASSOC);
-                        echo $row['title'] .'       '. '<a class="px-4" href="topicsform.php">Add new topic</a>' .'       ' . '<a href="redirect.php">View course comments</a>' . "<br>";
+                        echo $row['title'] .'       '. '<a class="px-4" href="topicsform.php">Add new topic</a>' ."
+                        <form class='form' action='viewcourse.php' method='post'>
+                        <input type='hidden' id='' name='course' value='". $row['title']. "'>
+                        <input type='submit' name='submit' value='view course' class='login-button'>
+                        </form>
+                        ". "<br>";
+                        
 
                         }
                     ?>

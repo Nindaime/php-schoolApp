@@ -2,6 +2,23 @@
 //include auth_session.php file on all user panel pages
 include("auth_session.php");
 require('db.php');
+if (isset($_REQUEST['course'])) {
+    // removes backslashes
+    $course = stripslashes($_REQUEST['course']);
+    //escapes special characters in a string
+    $course = mysqli_real_escape_string($con, $course);
+    $user = $_SESSION['username'];
+    
+    $query    = "INSERT into `courses` (user, title)
+                 VALUES ('$user', '$course')";
+    $result   = mysqli_query($con, $query);
+    if ($result) {
+        echo "<div class='form'>
+              <h3>You are registered successfully.</h3><br/>
+              <p class='link'>Refresh<a href='studentdashboard.php'>page</a></p>
+              </div>";
+    } 
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -59,7 +76,12 @@ require('db.php');
                         {
                         $result->data_seek($j);
                         $row = $result->fetch_array(MYSQLI_ASSOC);
-                        echo $row['title'] . "<br>";
+                        echo "<div class=d-flex><h5 class='mx-4'>".$row['title'] ."</h5>
+                        <form class='form' action='' method='post'>
+                        <input type='hidden' id='' name='course' value='". $row['title']. "'>
+                        <input type='submit' name='submit' value='Add course' class='login-button'>
+                        </form></div>
+                        ". "<br>";
                         }
             ?>
 
@@ -76,7 +98,12 @@ require('db.php');
                         {
                         $result->data_seek($j);
                         $row = $result->fetch_array(MYSQLI_ASSOC);
-                        echo $row['title'] . "<br>";
+                        echo $row['title'] ."
+                        <form class='form' action='viewcourse.php' method='post'>
+                        <input type='hidden' id='' name='course' value='". $row['title']. "'>
+                        <input type='submit' name='submit' value='view course' class='login-button'>
+                        </form>
+                        "."<br>";
                         }
             ?>
         </div>
