@@ -108,7 +108,8 @@ include("auth_session.php");
                         {
                         $result->data_seek($j);
                         $row = $result->fetch_array(MYSQLI_ASSOC);
-                        echo $row['title'] . '<a href="topicsform.php"> ADD TOPIC</a>' . "<br>";
+                        echo $row['title'] .'       '. '<a class="px-4" href="topicsform.php">Add new topic</a>' .'       ' . '<a href="redirect.php">View course comments</a>' . "<br>";
+
                         }
                     ?>
 

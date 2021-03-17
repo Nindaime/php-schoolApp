@@ -111,10 +111,23 @@ if(isset($_POST['but_upload'])){
                     <div class="form-group my-4">
                     <label for="coursetitle">Select Course</label>
                      <select name="course" class="form-control" id="coursetitle">
-                        <option value="monday">monday</option>
-                        <option value="teusday">teusday</option>
-                        <option value="wednesday">wednesday</option>
-                        <option value="thursday">thursday</option>
+
+                     <?php
+                        $username = $_SESSION['username'];
+                        $query = "SELECT * FROM courses WHERE user='$username'";
+                        $result = mysqli_query($con, $query) or die(mysql_error());
+                        
+                        $rows = $result->num_rows;
+                        for ($j = 0 ; $j < $rows ; ++$j)
+                        {
+                        $result->data_seek($j);
+                        $row = $result->fetch_array(MYSQLI_ASSOC);
+                        echo '<option value="'.$row['title']. '">'.$row['title'].'</option>';
+
+                        }
+                        ?>
+                        
+                        
                      </select>
                      </div>
 
