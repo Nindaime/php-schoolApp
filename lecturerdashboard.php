@@ -73,8 +73,8 @@ include("auth_session.php");
               </nav>
         </div>
     
-    <div class="container pt-5 mt-5 mx-5">
-    <div class="row my-5 pt-5">
+    <div class="container mt-5 mx-5">
+    <div class="row my-5">
     <h1 class="mt-5 pt-5">Lecturer Dashboard</h1>
     </div>
         <div class="row top">
@@ -111,8 +111,8 @@ include("auth_session.php");
 
         <div class="row mt-5">
             
-            <div class="col-md-4 mt-4">
-                <h2>ADD A NEW COURSE</h2>
+            <div class="col-md-4 mt-5">
+                <h2 class="mb-5">ADD A NEW COURSE</h2>
                 <form action="" method="post">
                     <div class="form-group">
                         <label for="title">Course Title</label>
@@ -127,7 +127,7 @@ include("auth_session.php");
             
                 <div class="center mx-auto">
 
-                <h1>MY COURSES</h1>
+                <h2 class="mb-5">MY COURSES</h2>
                     <?php
                         $username = $_SESSION['username'];
                         $query = "SELECT * FROM courses WHERE user='$username'";
@@ -139,11 +139,11 @@ include("auth_session.php");
                         {
                         $result->data_seek($j);
                         $row = $result->fetch_array(MYSQLI_ASSOC);
-                        echo $row['title'] .'       '. '<a class="px-4" href="topicsform.php">Add new topic</a>' ."
+                        echo '<div class="card mx-4 py-4"><h4 class="card-title  mx-4">'.$row['title'] .'   </h4> <div class="card-body">   '. '<a class="px-4" href="topicsform.php">Add new topic</a>' ."
                         <form class='form' action='viewcourse.php' method='post'>
                         <input type='hidden' id='' name='course' value='". $row['title']. "'>
                         <input type='submit' name='submit' value='view course' class='login-button'>
-                        </form>
+                        </form></div></div>
                         ". "<br>";
                         
 

@@ -58,7 +58,7 @@ if (isset($_REQUEST['course'])) {
               </nav>
         </div>
     
-    <div class="container mt-4">
+    <div class="container px-5 mt-4">
     <h1>Student</h1>
         <div class="row top">
             <div class="col-md-3">
