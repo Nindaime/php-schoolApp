@@ -73,7 +73,7 @@ include("auth_session.php");
               </nav>
         </div>
     
-    <div class="container mt-5 mx-5">
+    <div class="container mt-5 mx-auto">
     <div class="row my-5">
     <h1 class="mt-5 pt-5">Lecturer Dashboard</h1>
     </div>
