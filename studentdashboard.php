@@ -59,7 +59,7 @@ if (isset($_REQUEST['course'])) {
         </div>
     
     <div class="container px-5 mt-4">
-    <h1>Student</h1>
+    <h1 class="pt-5">Student</h1>
         <div class="row top">
             <div class="col-md-3">
                 <div class="card">
