@@ -79,8 +79,8 @@
 
                         "<form class='form d-flex' action='redirect.php' method='post'>
                             <input type='hidden' id='' name='topic' value='". $row['topic']. "'>
-                            <input type='submit' name='submit' value='Add Question' class='px-4 btn-secondary rounded'>
-                            <input type='submit' name='submit' value='View comments' class='px-4 btn-secondary rounded'>
+                            <input type='submit' name='questions' value='Add Question' class='px-4 btn-secondary rounded'>
+                            <input type='submit' name='comments' value='View comments' class='px-4 btn-secondary rounded'>
                         </form>".
                             
                         '</div>
