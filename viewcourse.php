@@ -31,6 +31,9 @@
                     <li class="nav-item mx-5">
                       <a style="background-color:purple; color:white;" class="font-weight-bold nav-link btn"  href="logout.php">LOGOUT</a>
                     </li>
+                    <li class="nav-item mx-5">
+                      <a style="background-color:purple; color:white;" class="font-weight-bold nav-link btn"  href="javascript:history.go(-1)">BACK TO DASHBOARD</a>
+                    </li>
                   </ul>
                   
                 </div>
@@ -54,9 +57,6 @@
         $rows = mysqli_num_rows($result);
         
             // $_SESSION['username'] = $username;
-            $query    = "SELECT * FROM `topics` WHERE title='$course'";
-
-            $result = mysqli_query($con, $query) or die(mysql_error());
             
 
             echo '<h1 class="my-4">'.'Course Title:'. '  '. $course .'</h1>'. '<div class="pt-4"> <h3>Lessons</h3></div>';
@@ -79,7 +79,7 @@
 
                         "<form class='form d-flex' action='questions.php' method='post'>
                             <input type='hidden' id='' name='topic' value='". $row['topic']. "'>
-                            <input type='submit' name='questions' value='Add Question' class='px-4 btn-secondary rounded'>
+                            <input style='background-color:purple; color:white' class='btn btn-block' type='submit' name='questions' value='Ask/View Questions Here' class='px-4 btn-secondary rounded'>
                         </form>".
                             
                         '</div>
