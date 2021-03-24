@@ -23,10 +23,6 @@
                     </li>
     
                     
-    
-                    <li class="nav-item font-weight-bold">
-                      <a class="nav-link" href="login.php">DASHBOARD</a>
-                    </li>
                     
                     <li class="nav-item mx-5">
                       <a style="background-color:purple; color:white;" class="font-weight-bold nav-link btn"  href="logout.php">LOGOUT</a>
@@ -57,6 +53,8 @@
         $rows = mysqli_num_rows($result);
         
             // $_SESSION['username'] = $username;
+            $_SESSION['course'] = $course;
+            $_SESSION['topic'] = '';
             
 
             echo '<h1 class="my-4">'.'Course Title:'. '  '. $course .'</h1>'. '<div class="pt-4"> <h3>Lessons</h3></div>';

@@ -3,6 +3,13 @@
 include("auth_session.php");
 
     require('db.php');
+
+
+    
+$_SESSION['course'] = '';
+$_SESSION['topic'] = '';
+$_SESSION['role'] = 'lecturerdashboard.php';
+
     // When form submitted, insert values into the database.
     if (isset($_REQUEST['title'])) {
         $result = 0;
@@ -59,10 +66,7 @@ include("auth_session.php");
                     </li>
     
                     
-    
-                    <li class="nav-item font-weight-bold">
-                      <a class="nav-link" href="login.php">DASHBOARD</a>
-                    </li>
+
                     
                     <li class="nav-item mx-5">
                       <a style="background-color:purple; color:white;" class="font-weight-bold nav-link btn"  href="logout.php">LOGOUT</a>
@@ -73,40 +77,21 @@ include("auth_session.php");
               </nav>
         </div>
     
-    <div class="container mt-5 mx-auto">
-    <div class="row my-5">
-    <h1 class="mt-5 pt-5">Lecturer Dashboard</h1>
-    </div>
-        <div class="row top">
+    
+    
+    <div class="container">
+    
+            <h1 class="ml-auto mt-5 pt-5">Lecturer Dashboard</h1>
+        
             <div class="col-sm-3">
-                <div class="card">
-                    <h4 class="card-title">
-                        Hey, <?php echo $_SESSION['username']; ?>!
-                    </h4>
-                </div>
+                
+                    <h1 class="card-title">
+                        Welcome,<span style="color:purple;"><?php echo $_SESSION['username']; ?></span>!
+                    </h1>
             </div>
-            <div class="col-sm-3">
-            <div class="card">
-                    <h4 class="card-title">
-                        COURSE LIST
-                    </h4>
-                </div>
-            </div>
-            <div class="col-sm-3">
-            <div class="card">
-                    <h4 class="card-title">
-                        ADD COURSE
-                    </h4>
-                </div>
-            </div>
-            <div class="col-sm-3">
-            <div class="card">
-                    <h4 class="card-title">
-                    <a href="logout.php">Logout</a>
-                    </h4>
-                </div>
-            </div>
-        </div>
+            
+            
+        
 
 
         <div class="row mt-5">
@@ -144,7 +129,7 @@ include("auth_session.php");
                         <input type='hidden' id='' name='course' value='". $row['title']. "'>
                         <input type='submit' name='submit' value='view course' class='login-button'>
                         </form></div></div>
-                        ". "<br>";
+                        ";
                         
 
                         }
@@ -160,5 +145,7 @@ include("auth_session.php");
     <?php
     }
 ?>
+</div>
+
 </body>
 </html>

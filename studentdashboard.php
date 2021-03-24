@@ -2,12 +2,19 @@
 //include auth_session.php file on all user panel pages
 include("auth_session.php");
 require('db.php');
+
+$_SESSION['course'] = '';
+$_SESSION['topic'] = '';
+$_SESSION['role'] = 'studentdashboard.php';
+
+
 if (isset($_REQUEST['course'])) {
     // removes backslashes
     $course = stripslashes($_REQUEST['course']);
     //escapes special characters in a string
     $course = mysqli_real_escape_string($con, $course);
     $user = $_SESSION['username'];
+
     
     $query    = "INSERT into `courses` (user, title)
                  VALUES ('$user', '$course')";
@@ -44,10 +51,6 @@ if (isset($_REQUEST['course'])) {
                     </li>
     
                     
-    
-                    <li class="nav-item font-weight-bold">
-                      <a class="nav-link" href="login.php">DASHBOARD</a>
-                    </li>
                     
                     <li class="nav-item mx-5">
                       <a style="background-color:purple; color:white;" class="font-weight-bold nav-link btn"  href="logout.php">LOGOUT</a>

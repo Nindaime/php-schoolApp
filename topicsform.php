@@ -100,7 +100,7 @@ if(isset($_POST['but_upload'])){
 <div class="container w-100 ">
 <h1 class="my-5 text-center">Add New Topics</h1>
 
-<div class="col-sm-8 col-md-6 my-4 mx-auto">
+<div class="col-sm-12 col-md-8 my-4 mx-auto">
     <form class="mx-auto my-4" method="post" action="" enctype='multipart/form-data'>
 
                   <div class="form-group my-4">
@@ -141,6 +141,11 @@ if(isset($_POST['but_upload'])){
       
       <button class="my-4 btn btn-primary"><input type='submit' value='SAVE' name='but_upload'></button>
     </form>
+    </div>
+    
+    <div class="button-wrap w-50 mx-auto">
+    <a style="background-color:purple; color:white;" class="font-weight-bold nav-link btn"  href="javascript:history.go(-1)">BACK TO DASHBOARD</a>
+    
     </div>
 
 </div>

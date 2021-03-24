@@ -23,6 +23,8 @@
         $rows = mysqli_num_rows($result);
         if ($rows == 1) {
             $_SESSION['username'] = $username;
+            $_SESSION['course'] = '';
+            $_SESSION['topic'] = '';
             $query    = "SELECT position FROM `users` WHERE username='$username'
                      AND password='" . md5($password) . "'";
             $result = mysqli_query($con, $query) or die(mysql_error());
