@@ -25,10 +25,10 @@
                     
                     
                     <li class="nav-item mx-5">
-                      <a style="background-color:purple; color:white;" class="font-weight-bold nav-link btn"  href="logout.php">LOGOUT</a>
+                      <a style="background-color:purple; color:white;" class="font-weight-bold nav-link"  href="logout.php">LOGOUT</a>
                     </li>
                     <li class="nav-item mx-5">
-                      <a style="background-color:purple; color:white;" class="font-weight-bold nav-link btn"  href="javascript:history.go(-1)">BACK TO DASHBOARD</a>
+                      <a style="background-color:purple; color:white;" class="font-weight-bold nav-link"  href="javascript:history.go(-1)">BACK TO DASHBOARD</a>
                     </li>
                   </ul>
                   
@@ -57,18 +57,19 @@
             $_SESSION['topic'] = '';
             
 
-            echo '<h1 class="my-4">'.'Course Title:'. '  '. $course .'</h1>'. '<div class="pt-4"> <h3>Lessons</h3></div>';
+            echo '<h1 class="my-4 text-capitalize">'.'Course Title:'. '  '. $course .'</h1>'. '<div class="pt-4"> <h3>Lessons</h3></div>';
             // Redirect to user dashboard page
             // header("Location: dashboard.php");
+            
             
             $rows = $result->num_rows;
                         for ($j = 0 ; $j < $rows ; ++$j)
                         {
                         $result->data_seek($j);
                         $row = $result->fetch_array(MYSQLI_ASSOC);
-                        echo '<h3 class="text-left">'.$row['topic'].'</h3>'.'<div class="my-4 row d-flex">
-                        <div class="video">'.
-                        '<video width="320" height="240" controls>
+                        echo '<div class="d-flex">'.'<div class="my-4 mx-auto row d-flex card px-4"><h3 class="card-header my-3 text-capitalize">'.$row['topic'].'</h3>'.'
+                        <div class="video card-img-top">'.
+                        '<video width="560" height="320" controls>
                         <source src="'. $row['video'].'" type="video/mp4">
                       Your browser does not support the video tag.
                       </video>'
@@ -81,8 +82,9 @@
                         </form>".
                             
                         '</div>
-                        </div>';
+                        </div></div>';
                         }
+                        
     } 
 
 
@@ -90,6 +92,9 @@
     
 ?>
 </div>
+
+<script src="./jquery-3.5.1.min.js" ></script>
+<script src="./bootstrap.min.js"></script>
 </body>
 </html>
 

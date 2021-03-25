@@ -10,35 +10,7 @@ $_SESSION['course'] = '';
 $_SESSION['topic'] = '';
 $_SESSION['role'] = 'lecturerdashboard.php';
 
-    // When form submitted, insert values into the database.
-    if (isset($_REQUEST['title'])) {
-        $result = 0;
-        $username = $_SESSION['username'];
-        // removes backslashes
-        $title = stripslashes($_REQUEST['title']);
-        //escapes special characters in a string
-        $title = mysqli_real_escape_string($con, $title);
-        // $email    = stripslashes($_REQUEST['email']);
-        // $position    = stripslashes($_REQUEST['position']);
-        // $email    = mysqli_real_escape_string($con, $email);
-        // $password = stripslashes($_REQUEST['password']);
-        // $password = mysqli_real_escape_string($con, $password);
-        // $create_datetime = date("Y-m-d H:i:s");
-        $query    = "INSERT into `courses` (user, title)
-                     VALUES ('$username', '$title' )";
-        $result   = mysqli_query($con, $query);
-        if ($result) {
-            echo "<div class='form'>
-                  <h3>Course Added successfully.</h3><br/>
-                  <p class='link'>Click here to <a href='lecturerdashboard.php'>Back to Dashboard</a></p>
-                  </div>";
-        } else {
-            echo "<div class='form'>
-                  <h3>Required fields are missing.</h3><br/>
-                  <p class='link'>Click here to <a href='lecturerdashboard.php'>Back to Dashboard</a> again.</p>
-                  </div>";
-        }
-    } else {
+ 
 ?>
 
 
@@ -68,51 +40,102 @@ $_SESSION['role'] = 'lecturerdashboard.php';
                     
 
                     
-                    <li class="nav-item mx-5">
-                      <a style="background-color:purple; color:white;" class="font-weight-bold nav-link btn"  href="logout.php">LOGOUT</a>
+                    <li class="nav-item">
+                      <a style="background-color:purple; color:white;" class="font-weight-bold nav-link"  href="logout.php">LOGOUT</a>
                     </li>
                   </ul>
                   
                 </div>
               </nav>
         </div>
+
+        <div class="message">
+
+        <?php
+
+            // When form submitted, insert values into the database.
+    if (isset($_REQUEST['title'])) {
+        $result = 0;
+        $username = $_SESSION['username'];
+        // removes backslashes
+        $title = stripslashes($_REQUEST['title']);
+        //escapes special characters in a string
+        $title = mysqli_real_escape_string($con, $title);
+        // $email    = stripslashes($_REQUEST['email']);
+        // $position    = stripslashes($_REQUEST['position']);
+        // $email    = mysqli_real_escape_string($con, $email);
+        // $password = stripslashes($_REQUEST['password']);
+        // $password = mysqli_real_escape_string($con, $password);
+        // $create_datetime = date("Y-m-d H:i:s");
+        $query    = "INSERT into `courses` (user, title)
+                     VALUES ('$username', '$title' )";
+        $result   = mysqli_query($con, $query);
+        if ($result) {
+            echo "<div class='container'><div class='mt-5 pt-5'>
+                  <h3 class='-5'>Course Added successfully.</h3><br/>
+                  <p class='link'>Click here to <a href='lecturerdashboard.php'>Refresh Dashboard</a></p>
+                  </div></div>";
+        } else {
+            echo "<div class=''>
+                  <h3>Required fields are missing.</h3><br/>
+                  <p class='link'>Click here to <a href='lecturerdashboard.php'>Back to Dashboard</a> again.</p>
+                  </div>";
+        }
+    }
+
+        ?>
+
+        </div>
     
     
     
     <div class="container">
     
-            <h1 class="ml-auto mt-5 pt-5">Lecturer Dashboard</h1>
+            <h1 class="ml-auto my-5 pt-5 d-flex">Lecturer Profile</h1>
         
-            <div class="col-sm-3">
+          <div class="d-flex">
+          <div class="col-md-4 card" style="background-color:purple; color:white;">
                 
-                    <h1 class="card-title">
-                        Welcome,<span style="color:purple;"><?php echo $_SESSION['username']; ?></span>!
-                    </h1>
-            </div>
+                <hdiv class="card-title">
+                Welcome to your Dashboard,  <h4><?php echo $_SESSION['username']; ?>!</h4>
+</div>
+                                   
+        </div>
+        <div class="col-md-4 card">
+        <h4 class="card-title">
+                    Firstname: <span><?php echo $_SESSION['firstname']; ?></span>
+                </h4>
+                <h4 class="card-title">
+                    Lastname: <span><?php echo $_SESSION['lastname']; ?></span>
+                </h4>
+
+        </div>
+          </div>
             
             
         
 
-
+<div class="container">
         <div class="row mt-5">
             
-            <div class="col-md-4 mt-5">
-                <h2 class="mb-5">ADD A NEW COURSE</h2>
-                <form action="" method="post">
+            <div class="col-lg-4 mt-5">
+                <h4 class="mb-5 text-center">ADD A NEW COURSE</h4>
+                <form action="" method="post" class="card p-5">
                     <div class="form-group">
                         <label for="title">Course Title</label>
                         <input type="text" name="title" class="form-control" id="title" placeholder="Course Title" required>
                     </div>
                     
-                    <button type="submit" name="submit" class="btn btn-primary"><a style="color: white">Submit</a></button>
+                    <button style="background-color: purple; border:none;" type="submit" name="submit" class="btn btn-primary"><a style="color: white">Submit</a></button>
                 </form>
             </div>
 
-            <div class="col-md-8 d-flex mt-5">
+            <div class="col-lg-8 d-flex mt-5">
             
                 <div class="center mx-auto">
 
-                <h2 class="mb-5">MY COURSES</h2>
+                <h4 class="mb-3 text-center">MY COURSES</h4>
+                <div class="grid-container2">
                     <?php
                         $username = $_SESSION['username'];
                         $query = "SELECT * FROM courses WHERE user='$username'";
@@ -124,11 +147,15 @@ $_SESSION['role'] = 'lecturerdashboard.php';
                         {
                         $result->data_seek($j);
                         $row = $result->fetch_array(MYSQLI_ASSOC);
-                        echo '<div class="card mx-4 py-4"><h4 class="card-title  mx-4">'.$row['title'] .'   </h4> <div class="card-body">   '. '<a class="px-4" href="topicsform.php">Add new topic</a>' ."
+                        echo '<div class="card grid-item mx-4 py-4"><h4 class="text-capitalize card-title mx-4">'.$row['title'] .'   </h4> <div class="">   '. "
                         <form class='form' action='viewcourse.php' method='post'>
                         <input type='hidden' id='' name='course' value='". $row['title']. "'>
-                        <input type='submit' name='submit' value='view course' class='login-button'>
-                        </form></div></div>
+                        <input style='background-color: gray; border:none; color:white;'  type='submit' name='submit' value='Open course' class='login-button btn'>
+                        </form>"."<br>"
+                        ."<form class='form' action='topicsform.php' method='post'>
+                        <input type='hidden' id='' name='title' value='". $row['title']. "'>
+                        <input style='background-color: gray; border:none; color:white;' type='submit' name='submit' value='Add new topic' class='login-button btn'>
+                        </form>"."</div></div>
                         ";
                         
 
@@ -136,16 +163,17 @@ $_SESSION['role'] = 'lecturerdashboard.php';
                     ?>
 
                 </div>
+                </div>
 
             </div>
 
         </div>
+        </div>
     </div>
 
-    <?php
-    }
-?>
-</div>
 
+</div>
+<script src="./jquery-3.5.1.min.js" ></script>
+<script src="./bootstrap.min.js"></script>
 </body>
 </html>

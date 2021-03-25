@@ -129,3 +129,33 @@ a:hover {
     display: flex; 
     list-style:none;
 }
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    /* background-color: #2196F3; */
+    padding: 2rem;
+    grid-gap: 2rem 2rem;
+  }
+.grid-container2 {
+    display: grid;
+    grid-template-columns: auto auto;
+    /* background-color: #2196F3; */
+    padding: 2rem;
+    grid-gap: 2rem 2rem;
+  }
+  .grid-item {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 5px;
+    font-size: 15px;
+    text-align: center;
+  }
+  @media only screen and (max-width: 800px) {
+    .grid-container {
+        grid-template-columns: auto;
+    }
+    .grid-container2 {
+        grid-template-columns: auto;
+    }
+  }

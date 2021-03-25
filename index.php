@@ -30,8 +30,8 @@
                       <a class="nav-link" href="registration.php">Register</a>
                     </li>
                     
-                    <li class="nav-item mx-5">
-                      <a style="background-color:purple; color:white;" class="font-weight-bold nav-link btn"  href="login.php">LOGIN</a>
+                    <li class="nav-item">
+                      <a style="background-color:purple; color:white;" class="font-weight-bold nav-link"  href="login.php">LOGIN</a>
                     </li>
                   </ul>
                   
@@ -98,8 +98,7 @@
 
 
 
-
-    <script src="./js/jquery-3.5.1.min.js"></script>
-    <script src="./js/bootstrap.min.js"></script>
+    <script src="./jquery-3.5.1.min.js" ></script>
+<script src="./bootstrap.min.js"></script>
 </body>
 </html>

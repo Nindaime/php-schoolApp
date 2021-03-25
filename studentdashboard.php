@@ -8,24 +8,6 @@ $_SESSION['topic'] = '';
 $_SESSION['role'] = 'studentdashboard.php';
 
 
-if (isset($_REQUEST['course'])) {
-    // removes backslashes
-    $course = stripslashes($_REQUEST['course']);
-    //escapes special characters in a string
-    $course = mysqli_real_escape_string($con, $course);
-    $user = $_SESSION['username'];
-
-    
-    $query    = "INSERT into `courses` (user, title)
-                 VALUES ('$user', '$course')";
-    $result   = mysqli_query($con, $query);
-    if ($result) {
-        echo "<div class='form'>
-              <h3>You are registered successfully.</h3><br/>
-              <p class='link'>Refresh<a href='studentdashboard.php'>page</a></p>
-              </div>";
-    } 
-}
 ?>
 <!DOCTYPE html>
 <html>
@@ -53,7 +35,7 @@ if (isset($_REQUEST['course'])) {
                     
                     
                     <li class="nav-item mx-5">
-                      <a style="background-color:purple; color:white;" class="font-weight-bold nav-link btn"  href="logout.php">LOGOUT</a>
+                      <a style="background-color:purple; color:white;" class="font-weight-bold nav-link"  href="logout.php">LOGOUT</a>
                     </li>
                   </ul>
                   
@@ -63,25 +45,25 @@ if (isset($_REQUEST['course'])) {
     
     <div class="container px-5 mt-4">
     <h1 class="pt-5">Student</h1>
-        <div class="row top">
+        <div class="row">
             <div class="col-md-3">
                 <div class="card">
                     <h4 class="card-title">
-                        Hey, <?php echo $_SESSION['username']; ?>!
+                        Welcome to your Dashboard, <?php echo $_SESSION['username']; ?>!
                     </h4>
                 </div>
             </div>
             <div class="col-md-3">
             <div class="card">
-                    <h4 class="card-title">
-                        COURSE LIST
+                    <h4 class="card-title text-capitalize">
+                    firstname: <?php echo $_SESSION['firstname']; ?>
                     </h4>
                 </div>
             </div>
             <div class="col-md-3">
             <div class="card">
-                    <h4 class="card-title">
-                        ADD COURSE
+                    <h4 class="card-title text-capitalize">
+                    lastname: <?php echo $_SESSION['lastname']; ?>
                     </h4>
                 </div>
             </div>
@@ -94,31 +76,35 @@ if (isset($_REQUEST['course'])) {
             </div>
         </div>
 
+        <?php
+
+
+if (isset($_REQUEST['course'])) {
+    // removes backslashes
+    $course = stripslashes($_REQUEST['course']);
+    //escapes special characters in a string
+    $course = mysqli_real_escape_string($con, $course);
+    $user = $_SESSION['username'];
+
+    
+    $query    = "INSERT into `courses` (user, title)
+                 VALUES ('$user', '$course')";
+    $result   = mysqli_query($con, $query);
+    if ($result) {
+        echo "<div class='form'>
+              <h3>Course registered successfully.</h3><br/>
+              <p class='link'><a href='studentdashboard.php'>Refresh page</a></p>
+              </div>";
+    } 
+}
+        ?>
+
         <div class="row mt-5">
 
-        <div class="col-md-5 offset-md-1 mt-5">
-            <h2>All Courses</h2>
-            <?php
-                        $query = "SELECT * FROM courses";
-                        $result = mysqli_query($con, $query) or die(mysql_error());
-                        
-                        $rows = $result->num_rows;
-                        for ($j = 0 ; $j < $rows ; ++$j)
-                        {
-                        $result->data_seek($j);
-                        $row = $result->fetch_array(MYSQLI_ASSOC);
-                        echo "<div class='card'><div class='my-5 card-body'><h5 class='card-title'>".$row['title'] ."</h5>
-                        <form class='form' action='' method='post'>
-                        <input type='hidden' id='' name='course' value='". $row['title']. "'>
-                        <input type='submit' name='submit' value='Add course' class='login-button'>
-                        </form></div></div>
-                        ". "<br>";
-                        }
-            ?>
-
-        </div>
-        <div class="col-md-5 offset-md-1 mt-5">
-        <h2>My Courses</h2>
+        <div class="col-md-12 mt-5 card">
+        <h2 class="my-5">My Courses</h2>
+        <div class="grid-container">
+        
             <?php
                         $username = $_SESSION['username'];
                         $query = "SELECT * FROM courses WHERE user='$username'";
@@ -129,16 +115,45 @@ if (isset($_REQUEST['course'])) {
                         {
                         $result->data_seek($j);
                         $row = $result->fetch_array(MYSQLI_ASSOC);
-                        echo $row['title'] ."
+                        echo "<div  class='grid-item'><h6 class='text-capitalize'>".$row['title'] ."</h6>
                         <form class='form' action='viewcourse.php' method='post'>
                         <input type='hidden' id='' name='course' value='". $row['title']. "'>
-                        <input type='submit' name='submit' value='view course' class='login-button'>
+                        <input type='submit' name='submit' value='Open course' class='login-button'>
                         </form>
-                        "."<br>";
+                        "."<br></div>";
                         }
             ?>
         </div>
         </div>
+
+        <div class="card col-md-12 mt-5">
+            <h2 class="my-5">All Courses</h2>
+            <div class="grid-container">
+            <?php
+                        $query = "SELECT * FROM courses";
+                        $result = mysqli_query($con, $query) or die(mysql_error());
+                        
+                        $rows = $result->num_rows;
+                        for ($j = 0 ; $j < $rows ; ++$j)
+                        {
+                        $result->data_seek($j);
+                        $row = $result->fetch_array(MYSQLI_ASSOC);
+                        echo "<div class='gird-item'><h6 class='text-capitalize'>".$row['title'] ."</h6>
+                        <form class='form' action='' method='post'>
+                        <input type='hidden' id='' name='course' value='". $row['title']. "'>
+                        <input type='submit' name='submit' value='Register Course' class='login-button'>
+                        </form></div>
+                        ";
+                        }
+            ?>
+
+        </div>
+        </div>
+        
+        </div>
     </div>
+    </div>
+<script src="./jquery-3.5.1.min.js" ></script>
+<script src="./bootstrap.min.js"></script>
 </body>
 </html>

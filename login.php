@@ -21,9 +21,12 @@
                      AND password='" . md5($password) . "'";
         $result = mysqli_query($con, $query) or die(mysql_error());
         $rows = mysqli_num_rows($result);
+        $row = mysqli_fetch_assoc($result);
         if ($rows == 1) {
-            $_SESSION['username'] = $username;
-            $_SESSION['course'] = '';
+          $_SESSION['username'] = $username;
+          $_SESSION['firstname'] = $row['firstname'];
+          $_SESSION['lastname'] = $row['lastname'];
+          $_SESSION['course'] = '';
             $_SESSION['topic'] = '';
             $query    = "SELECT position FROM `users` WHERE username='$username'
                      AND password='" . md5($password) . "'";
@@ -65,5 +68,8 @@
 <?php
     }
 ?>
+
+<script src="./jquery-3.5.1.min.js" ></script>
+<script src="./bootstrap.min.js"></script>
 </body>
 </html>
