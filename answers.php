@@ -6,15 +6,15 @@ require('db.php');
 
 
 
-if (isset($_REQUEST['newquestion'])) {
+if (isset($_REQUEST['newanswer'])) {
 
-    $topic = $_SESSION['topic'];
+    $question = $_SESSION['question'];
     $result = 0;
     $username = $_SESSION['username'];
     // removes backslashes
-    $question = stripslashes($_REQUEST['newquestion']);
+    $answer = stripslashes($_REQUEST['newanswer']);
     //escapes special characters in a string
-    $question = mysqli_real_escape_string($con, $question);
+    $answer = mysqli_real_escape_string($con, $answer);
     
     // $email    = stripslashes($_REQUEST['email']);
     // $position    = stripslashes($_REQUEST['position']);
@@ -22,8 +22,8 @@ if (isset($_REQUEST['newquestion'])) {
     // $password = stripslashes($_REQUEST['password']);
     // $password = mysqli_real_escape_string($con, $password);
     // $create_datetime = date("Y-m-d H:i:s");
-    $query    = "INSERT into `questions` (user, question, topic)
-                 VALUES ('$username', '$question', '$topic')";
+    $query    = "INSERT into `answers` (user, answer, question)
+                 VALUES ('$username', '$answer', '$question')";
     $result   = mysqli_query($con, $query);
 
     
@@ -90,12 +90,12 @@ if (isset($_REQUEST['newquestion'])) {
         <div class="row mt-5">
             
             <div class="col-md-4 mt-5">
-                <h2 class="mb-5">ASK YOUR QUESTIONS</h2>
+                <h2 class="mb-5">Answer Here</h2>
                 <form action="" method="post">
                     <div class="form-group">
-                        <label for="title">TYPE YOUR QUESTION</label>
+                        <label for="title">TYPE YOUR ANSWERS</label>
                         
-                        <textarea id="question" name="newquestion" class="form-control" placeholder="Course Title" required rows="4" cols="50"></textarea>
+                        <textarea id="answer" name="newanswer" class="form-control" placeholder="Course Title" required rows="4" cols="50"></textarea>
                     </div>
                     
                     <button type="submit" name="submit" class="btn btn-primary"><a style="color: white">Submit</a></button>
@@ -106,20 +106,20 @@ if (isset($_REQUEST['newquestion'])) {
             
                 <div class="center mx-auto">
 
-                <h2 class="mb-5">ALL QUESTIONS</h2>
+                <h2 class="mb-5 text-uppercase">ALL Answers</h2>
                     <?php
-                    if (isset($_REQUEST['topic'])) {
-                            $topic = stripslashes($_REQUEST['topic']);    // removes backslashes
-                            $topic = mysqli_real_escape_string($con, $topic);
+                    if (isset($_REQUEST['question'])) {
+                            $question = stripslashes($_REQUEST['question']);    // removes backslashes
+                            $question = mysqli_real_escape_string($con, $question);
 
                             
                         
                         
                         $username = $_SESSION['username'];
-                        $_SESSION['topic'] = $topic;
+                        $_SESSION['question'] = $question;
                         
                         
-                        $query = "SELECT * FROM questions WHERE topic='$topic'";
+                        $query = "SELECT * FROM answers WHERE question='$question'";
                         
                         $result = mysqli_query($con, $query) or die(mysql_error());
                         
@@ -128,10 +128,7 @@ if (isset($_REQUEST['newquestion'])) {
                         {
                         $result->data_seek($j);
                         $row = $result->fetch_array(MYSQLI_ASSOC);
-                        echo '<div class="card mx-4 py-4"><h4 class="card-title  mx-4">'.$row['question'] .'   </h4> <i class="ml-4">Asked by:  '. $row['user'].'  </i> <div class="card-body">   '."<form class='form' action='answers.php' method='post'>
-                        <input type='hidden' id='' name='question' value='". $row['question']. "'>
-                        <input type='submit' name='submit' value='view Answers' class='login-button'>
-                        </form></div></div>
+                        echo '<div class="card mx-4 py-4"><h4 class="card-title  mx-4">'.$row['answer'] .'   </h4><i class="ml-4">Asked by:  '. $row['user'].'  </i> <div class="card-body">   '."</div></div>
                         ". "<br>";
                         
 
@@ -141,10 +138,10 @@ if (isset($_REQUEST['newquestion'])) {
                     else {
 
                         $username = $_SESSION['username'];
-                         $topic = $_SESSION['topic'];
+                        $question = $_SESSION['question'];
                         
                         
-                        $query = "SELECT * FROM questions WHERE topic='$topic'";
+                        $query = "SELECT * FROM answers WHERE question='$question'";
                         
                         $result = mysqli_query($con, $query) or die(mysql_error());
                         
@@ -153,11 +150,7 @@ if (isset($_REQUEST['newquestion'])) {
                         {
                         $result->data_seek($j);
                         $row = $result->fetch_array(MYSQLI_ASSOC);
-                        echo '<div class="card mx-4 py-4"><h4 class="card-title  mx-4">'.$row['question'] .' </h4>  <i class="ml-4">Asked by:  '. $row['user'].'  </i><div class="card-body">   '."<form class='form' action='answers.php' method='post'>
-                        <input type='hidden' id='' name='question' value='". $row['question']. "'>
-                        <input type='submit' name='submit' value='view Answers' class='login-button'>
-                        </form></div></div>
-                        ". "<br>";
+                        echo '<div class="card mx-4 py-4"><h4 class="card-title  mx-4">'.$row['answer'] .' </h4>  <i class="ml-4">Asked by:  '. $row['user'].'  </i><div class="card-body">   '."</div></div><br>";
                         
 
                         }
