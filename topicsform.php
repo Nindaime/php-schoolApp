@@ -138,7 +138,7 @@ if(isset($_POST['but_upload'])){
                     </div>
                     
       
-      <button style="background-color:purple; color:white;" class="my-4 btn"><input style="background-color:purple; color:white; border:none" type='submit' value='SAVE' name='but_upload'></button>
+      <input class="btn btn-lg" style="background-color:purple; color:white; border:none" type='submit' value='SAVE' name='but_upload'>
     </form>
 
     </div>
