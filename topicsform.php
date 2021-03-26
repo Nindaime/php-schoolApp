@@ -5,7 +5,7 @@ include("db.php");
 
  
 if(isset($_POST['but_upload'])){
-   $maxsize = 5242880; // 5MB
+   $maxsize = 524288000; // 500MB
    if(isset($_FILES['file']['name']) && $_FILES['file']['name'] != ''){
        $name = $_FILES['file']['name'];
        $target_dir = "videos/";
@@ -25,12 +25,9 @@ if(isset($_POST['but_upload'])){
              $_SESSION['message'] = "File too large. File must be less than 5MB.";
           }else{
              // Upload
-             if(move_uploaded_file($_FILES['file']['tmp_name'],$target_file)){
-               // Insert record
-               $query = "INSERT INTO videos(name,location) VALUES('".$name."','".$target_file."')";
-
-               mysqli_query($con,$query);
-               $_SESSION['message'] = "Upload successfully.";
+             if(move_uploaded_file($_FILES['file']['tmp_name'], $target_file)){
+              
+               
                
                
                if (isset($_REQUEST['course'])) {
@@ -44,6 +41,10 @@ if(isset($_POST['but_upload'])){
                   $topic = stripslashes($_REQUEST['topic']);
                   //escapes special characters in a string
                   $topic = mysqli_real_escape_string($con, $topic);
+                  // removes backslashes
+                  $details = stripslashes($_REQUEST['details']);
+                  //escapes special characters in a string
+                  $details = mysqli_real_escape_string($con, $details);
                   
                   // $email    = stripslashes($_REQUEST['email']);
                   // $position    = stripslashes($_REQUEST['position']);
@@ -51,19 +52,13 @@ if(isset($_POST['but_upload'])){
                   // $password = stripslashes($_REQUEST['password']);
                   // $password = mysqli_real_escape_string($con, $password);
                   // $create_datetime = date("Y-m-d H:i:s");
-                  $query    = "INSERT into `topics` (user, title, topic, video)
-                               VALUES ('$username', '$course', '$topic', '".$target_file."' )";
+                  $query    = "INSERT into `topics` (user, title, topic, details, video)
+                               VALUES ('$username', '$course', '$topic', '$details', '".$target_file."' )";
                   $result   = mysqli_query($con, $query);
                   if ($result) {
-                      echo "<div class='form'>
-                            <h3>Course Added successfully.</h3><br/>
-                            <p class='link'>Click here to <a href='lecturerdashboard.php'>Back to Dashboard</a></p>
-                            </div>";
+                     $_SESSION['message'] = "Upload successfully.";
                   } else {
-                      echo "<div class='form'>
-                            <h3>Required fields are missing.</h3><br/>
-                            <p class='link'>Click here to <a href='lecturerdashboard.php'>Back to Dashboard</a> again.</p>
-                            </div>";
+                     $_SESSION['message'] = "Upload Failed.";
                   }
               }
              }
@@ -92,62 +87,72 @@ if(isset($_POST['but_upload'])){
     <!-- Upload response -->
     <?php 
     if(isset($_SESSION['message'])){
-       echo $_SESSION['message'];
+       echo '<div class="alert alert-primary" role="alert">'
+       .$_SESSION['message'].
+     '</div>';
        unset($_SESSION['message']);
     }
+    
     ?>
 
 <div class="container w-100 ">
-<h1 class="my-5 text-center">Add New Topics</h1>
+<h1 class="my-5 text-center" style="color:purple;">Add New Topics</h1>
 
 <div class="col-sm-12 col-md-8 my-4 mx-auto">
+   
+<div class="card">
     <form class="mx-auto my-4" method="post" action="" enctype='multipart/form-data'>
 
-                  <div class="form-group my-4">
+    <?php              
+                  
+    if (isset($_REQUEST['title'])) {
+                  // removes backslashes
+                  $title = stripslashes($_REQUEST['title']);
+                  //escapes special characters in a string
+                  $title = mysqli_real_escape_string($con, $title);
+
+                  echo '<div class="form-group my-4">
+                  <label for="topic">Course topic</label>
+                  <input type="text" name="course" value="'. $title.'" class="form-control" id="topic" placeholder="Course topic" required>
+              </div>';
+
+    }
+
+    ?>
+
+                     <div class="form-group my-4">
                         <label for="topic">Course topic</label>
                         <input type="text" name="topic" class="form-control" id="topic" placeholder="Course topic" required>
                     </div>
-                  
 
-                    <div class="form-group my-4">
-                    <label for="coursetitle">Select Course</label>
-                     <select name="course" class="form-control" id="coursetitle">
 
-                     <?php
-                        $username = $_SESSION['username'];
-                        $query = "SELECT * FROM courses WHERE user='$username'";
-                        $result = mysqli_query($con, $query) or die(mysql_error());
-                        
-                        $rows = $result->num_rows;
-                        for ($j = 0 ; $j < $rows ; ++$j)
-                        {
-                        $result->data_seek($j);
-                        $row = $result->fetch_array(MYSQLI_ASSOC);
-                        echo '<option value="'.$row['title']. '">'.$row['title'].'</option>';
-
-                        }
-                        ?>
-                        
-                        
-                     </select>
+                    <div class="form-group">
+                        <label for="comment">Course details :</label>
+                        <textarea name="details" class="form-control" rows="5" id="comment"></textarea>
                      </div>
 
       
                      <div class="form-group my-4">
-                        <label for="file">Course file</label>
-                        <input type='file' name='file' class="form-control-file" id="file"/>
+      <label for="file">Course Video</label>
+      <input type='file' name='file' class="form-control-file" id="file" required/>
                     </div>
                     
       
-      <button class="my-4 btn btn-primary"><input type='submit' value='SAVE' name='but_upload'></button>
+      <button style="background-color:purple; color:white;" class="my-4 btn"><input style="background-color:purple; color:white; border:none" type='submit' value='SAVE' name='but_upload'></button>
     </form>
+
+    </div>
+    
     </div>
     
     <div class="button-wrap w-50 mx-auto">
-    <a style="background-color:purple; color:white;" class="font-weight-bold nav-link btn"  href="javascript:history.go(-1)">BACK TO DASHBOARD</a>
+    <a style="background-color:purple; color:white;" class="font-weight-bold nav-link btn"  href="lecturerdashboard.php">BACK TO DASHBOARD</a>
     
     </div>
 
 </div>
+
+<script src="./jquery-3.5.1.min.js" ></script>
+<script src="./bootstrap.min.js"></script>
   </body>
 </html>
