@@ -76,7 +76,13 @@ if (isset($_REQUEST['newquestion'])) {
     
     <div class="container mt-5 mx-auto">
     <div class="row my-5">
-    <h1 class="mt-5 pt-5">Lesson Details</h1>
+    <h1 class="mt-5 pt-5">Topic: <?php
+    if (isset($_REQUEST['topic'])) {
+      $topic = stripslashes($_REQUEST['topic']);    // 
+
+      
+    echo $topic;
+    } ?></h1>
     </div>
 
     <div class="row">
