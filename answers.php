@@ -3,18 +3,26 @@
 include("auth_session.php");
 
 require('db.php');
+if (isset($_REQUEST['question'])) {
+  $question = stripslashes($_REQUEST['question']);    // 
+  $_SESSION['question'] = $question;
+}
+
 
 
 
 if (isset($_REQUEST['newanswer'])) {
+  // removes backslashes
+  $answer = stripslashes($_REQUEST['newanswer']);
+  //escapes special characters in a string
+  $answer = mysqli_real_escape_string($con, $answer);
+  // echo $answer;
 
     $question = $_SESSION['question'];
+    // echo $question;
     $result = 0;
     $username = $_SESSION['username'];
-    // removes backslashes
-    $answer = stripslashes($_REQUEST['newanswer']);
-    //escapes special characters in a string
-    $answer = mysqli_real_escape_string($con, $answer);
+    // echo $username;
     
     // $email    = stripslashes($_REQUEST['email']);
     // $position    = stripslashes($_REQUEST['position']);
@@ -22,9 +30,16 @@ if (isset($_REQUEST['newanswer'])) {
     // $password = stripslashes($_REQUEST['password']);
     // $password = mysqli_real_escape_string($con, $password);
     // $create_datetime = date("Y-m-d H:i:s");
-    $query    = "INSERT into `answers` (user, answer, question)
-                 VALUES ('$username', '$answer', '$question')";
-    $result   = mysqli_query($con, $query);
+    $query    = "INSERT into `answers` (answer, user, question)
+                 VALUES ('$answer', '$username', '$question')";
+    $resultw   = mysqli_query($con, $query);
+
+    if ($resultw) {
+      echo "<div class='form'>
+            <h3>You are registered successfully.</h3><br/>
+            <p class='link'>Click here to <a href='login.php'>Login</a></p>
+            </div>";
+  }
 
     
 }
@@ -76,7 +91,10 @@ if (isset($_REQUEST['newanswer'])) {
     
     <div class="container mt-5 mx-auto">
     <div class="row my-5">
-    <h1 class="mt-5 pt-5">Lesson Details</h1>
+    <h1 class="mt-5 pt-5">Question: <?php
+         
+    echo $_SESSION['question'];
+     ?></h1>
     </div>
 
     <div class="row">
@@ -93,9 +111,9 @@ if (isset($_REQUEST['newanswer'])) {
                 <h2 class="mb-5">Answer Here</h2>
                 <form action="" method="post">
                     <div class="form-group">
-                        <label for="title">TYPE YOUR ANSWERS</label>
+                        <label for="newanswer">TYPE YOUR ANSWERS</label>
                         
-                        <textarea id="answer" name="newanswer" class="form-control" placeholder="Course Title" required rows="4" cols="50"></textarea>
+                        <textarea id="newanswer" name="newanswer" class="form-control" placeholder="Course Title" required rows="4" cols="50"></textarea>
                     </div>
                     
                     <button type="submit" name="submit" class="btn btn-primary"><a style="color: white">Submit</a></button>
@@ -106,7 +124,7 @@ if (isset($_REQUEST['newanswer'])) {
             
                 <div class="center mx-auto">
 
-                <h2 class="mb-5 text-uppercase">ALL Answers</h2>
+                <h2 class="mb-5 text-capitalize">All Answers</h2>
                     <?php
                     if (isset($_REQUEST['question'])) {
                             $question = stripslashes($_REQUEST['question']);    // removes backslashes

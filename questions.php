@@ -99,7 +99,7 @@ if (isset($_REQUEST['newquestion'])) {
                 <h2 class="mb-5">ASK YOUR QUESTIONS</h2>
                 <form action="" method="post">
                     <div class="form-group">
-                        <label for="title">TYPE YOUR QUESTION</label>
+                        <label for="question">TYPE YOUR QUESTION</label>
                         
                         <textarea id="question" name="newquestion" class="form-control" placeholder="Course Title" required rows="4" cols="50"></textarea>
                     </div>
