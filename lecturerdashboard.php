@@ -26,22 +26,26 @@ $_SESSION['role'] = 'lecturerdashboard.php';
 
     <div class="container-fluid bg-transparent w-100 p-0">
             <nav style="background-color: purple;" class="navbar navbar-expand-md navbar-light px-0 w-100 px-5">
-                <a style="font-size: 2rem" class="navbar-brand px-4 display-7" href="#">SchoolApp</a>
+                <a style="font-size:" class="navbar-brand px-4 display-7" href="#">SchoolApp  |  Lecturer Profile</a>
                 <button class="navbar-toggler mr-2" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
                 </button>
               
                 <div class="collapse navbar-collapse w-100" id="navbarSupportedContent">
                   <ul class="navbar-nav ml-auto">
+
+                  <li class="nav-item active">
+                <a class="nav-link" href="#">Welcome, <?php echo $_SESSION['username']; ?>   |</a>
+                </li>
+
+            
                     <li class="nav-item active">
-                      <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                      <a class="nav-link" href="#">Home  |<span class="sr-only">(current)</span></a>
                     </li>
     
-                    
-
-                    
+                  
                     <li class="nav-item">
-                      <a style="background-color:purple; color:white;" class="font-weight-bold nav-link"  href="logout.php">LOGOUT</a>
+                      <a style="background-color:purple; color:white;" class="font-weight-bold nav-link"  href="logout.php">Logout</a>
                     </li>
                   </ul>
                   
@@ -90,47 +94,16 @@ $_SESSION['role'] = 'lecturerdashboard.php';
     
     
     <div class="container">
-    
-            <h1 class="ml-auto my-5 pt-5 d-flex">Lecturer Profile</h1>
         
-          <div class="d-flex">
-          <div class="col-md-4 card" style="background-color:purple; color:white;">
-                
-                <hdiv class="card-title">
-                Welcome to your Dashboard,  <h4><?php echo $_SESSION['username']; ?>!</h4>
-</div>
-                                   
-        </div>
-        <div class="col-md-4 card">
-        <h4 class="card-title">
-                    Firstname: <span><?php echo $_SESSION['firstname']; ?></span>
-                </h4>
-                <h4 class="card-title">
-                    Lastname: <span><?php echo $_SESSION['lastname']; ?></span>
-                </h4>
-
-        </div>
-          </div>
+          
             
             
         
 
 <div class="container">
         <div class="row mt-5">
-            
-            <div class="col-lg-4 mt-5">
-                <h4 class="mb-5 text-center">ADD A NEW COURSE</h4>
-                <form action="" method="post" class="card p-5">
-                    <div class="form-group">
-                        <label for="title">Course Title</label>
-                        <input type="text" name="title" class="form-control" id="title" placeholder="Course Title" required>
-                    </div>
-                    
-                    <button style="background-color: purple; border:none;" type="submit" name="submit" class="btn btn-primary"><a style="color: white">Submit</a></button>
-                </form>
-            </div>
 
-            <div class="col-lg-8 d-flex mt-5">
+        <div class="col-lg-8 d-flex mt-5">
             
                 <div class="center mx-auto">
 
@@ -166,6 +139,22 @@ $_SESSION['role'] = 'lecturerdashboard.php';
                 </div>
 
             </div>
+
+            
+            
+            <div class="col-lg-4 mt-5">
+                <h4 class="mb-5 text-center">ADD A NEW COURSE</h4>
+                <form action="" method="post" class="card p-5">
+                    <div class="form-group">
+                        <label for="title">Course Title</label>
+                        <input type="text" name="title" class="form-control" id="title" placeholder="Course Title" required>
+                    </div>
+                    
+                    <button style="background-color: purple; border:none;" type="submit" name="submit" class="btn btn-primary"><a style="color: white">Submit</a></button>
+                </form>
+            </div>
+
+            
 
         </div>
         </div>
