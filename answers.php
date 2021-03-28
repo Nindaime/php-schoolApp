@@ -95,6 +95,42 @@ if (isset($_REQUEST['newanswer'])) {
     echo "<h1>this operation failed</h1>";
   }
 
+}
+
+if (isset($_REQUEST['comment'])) {
+  // removes backslashes
+  $comment = stripslashes($_REQUEST['comment']);
+  //escapes special characters in a string
+  $comment = mysqli_real_escape_string($con, $comment);
+
+  // removes backslashes
+  $answerd = stripslashes($_REQUEST['answerd']);
+  //escapes special characters in a string
+  $answerd = mysqli_real_escape_string($con, $answerd);
+  // echo $answer;
+
+    
+    // echo $question;
+    // $result = 0;
+    // $username = $_SESSION['username'];
+    // echo $username;
+    
+    // $email    = stripslashes($_REQUEST['email']);
+    // $position    = stripslashes($_REQUEST['position']);
+    // $email    = mysqli_real_escape_string($con, $email);
+    // $password = stripslashes($_REQUEST['password']);
+    // $password = mysqli_real_escape_string($con, $password);
+    // $create_datetime = date("Y-m-d H:i:s");
+    $query    = "INSERT into `comments` (answer, comment) VALUES ('$answerd', '$comment')";
+    $result   = mysqli_query($con, $query);
+
+    if ($result) {
+      echo "Successfully Added";
+  }
+  else {
+    echo "<h1>this operation failed</h1>";
+  }
+
     
 }
 
@@ -147,8 +183,42 @@ if (isset($_REQUEST['newanswer'])) {
                         {
                         $result->data_seek($j);
                         $row = $result->fetch_array(MYSQLI_ASSOC);
-                        echo '<div class="card mx-4 py-4"><h4 class="card-title  mx-4">'.$row['question'] .'   </h4><i class="ml-4">Authored by:  '. $row['user'].'  </i> <div class="card-body">   '."</div></div>
+                        echo '<div class="card mx-4 py-4"><h4 class="card-title  mx-4">'.$row['answer'] .'   </h4><i class="ml-4">Authored by:  '. $row['user'].'  </i> <div class="card-body">   '.'<p>
+                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                          Comment
+                        </button>
+                      </p>';
+
+                      if ($_SESSION['role'] == 'lecturerdashboard.php'){
+                        echo '<div class="collapse" id="collapseExample"><form>
+                        <div class="form-group">
+                          <label for="comment">Comments</label>
+                          <input name="comment" type="text" class="form-control" id="comment" aria-describedby="comment" placeholder="Enter comments">
+                        </div>
+
+                        <div class="form-group">
+                        <input name="answerd" type="hidden" class="form-control" value="'.$row['answer'] .' ">
+                      </div>
+                        
+                        <div class="form-check">
+                          <input name="correct" type="checkbox" class="form-check-input" id="exampleCheck1">
+                          <label class="form-check-label" for="exampleCheck1">Check if answer is correct</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                      </form></div>
+                                                ';
+                                              }
+                      
+                                              else {
+                                                echo '<p>Lecturers comment </p>';
+                                              }
+                      
+                      
+                      
+                      echo "</div></div>
                         ". "<br>";
+
+                        
                         
 
                         }
@@ -169,7 +239,42 @@ if (isset($_REQUEST['newanswer'])) {
                         {
                         $result->data_seek($j);
                         $row = $result->fetch_array(MYSQLI_ASSOC);
-                        echo '<div class="card mx-4 py-4"><h4 class="card-title  mx-4">'.$row['answer'] .' </h4>  <i class="ml-4">Asked by:  '. $row['user'].'  </i><div class="card-body">   '."</div></div><br>";
+                        echo '<div class="card mx-4 py-4"><h4 class="card-title  mx-4">'.$row['answer'] .'   </h4><i class="ml-4">Authored by:  '. $row['user'].'  </i> <div class="card-body">   '.'<p>
+                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                          Comment
+                        </button>
+                      </p>';
+
+                      if ($_SESSION['role'] == 'lecturerdashboard.php'){
+                        echo '<div class="collapse" id="collapseExample"><form>
+                        <div class="form-group">
+                          <label for="comment">Comments</label>
+                          <input name="comment" type="text" class="form-control" id="comment" aria-describedby="comment" placeholder="Enter comments">
+                        </div>
+
+                        <div class="form-group">
+                          <input name="answerd" type="hidden" class="form-control" value="'.$row['answer'] .' ">
+                        </div>
+                        
+                        <div class="form-check">
+                          <input name="correct" type="checkbox" class="form-check-input" id="exampleCheck1">
+                          <label class="form-check-label" for="exampleCheck1">Check if answer is correct</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                      </form></div>
+                                                ';
+                                              }
+                      
+                                              else {
+                                                echo '<p>Lecturers comment </p>';
+                                              }
+                      
+                      
+                      
+                      echo "</div></div>
+                        ". "<br>";
+
+                        
                         
 
                         }
