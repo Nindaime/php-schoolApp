@@ -78,7 +78,7 @@
 
                         "<form class='form d-flex' action='questions.php' method='post'>
                             <input type='hidden' id='' name='topic' value='". $row['topic']. "'>
-                            <input style='background-color:purple; color:white' class='btn btn-block' type='submit' name='questions' value='Ask/View Questions Here' class='px-4 btn-secondary rounded'>
+                            <input style='background-color:purple; color:white' class='btn btn-block' type='submit' name='questions' value='Questions Here' class='px-4 btn-secondary rounded'>
                         </form>".
                             
                         '</div>

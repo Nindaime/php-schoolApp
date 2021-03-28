@@ -3,48 +3,11 @@
 include("auth_session.php");
 
 require('db.php');
+
 if (isset($_REQUEST['question'])) {
   $question = stripslashes($_REQUEST['question']);    // 
   $_SESSION['question'] = $question;
 }
-
-
-
-
-if (isset($_REQUEST['newanswer'])) {
-  // removes backslashes
-  $answer = stripslashes($_REQUEST['newanswer']);
-  //escapes special characters in a string
-  $answer = mysqli_real_escape_string($con, $answer);
-  // echo $answer;
-
-    $question = $_SESSION['question'];
-    // echo $question;
-    $result = 0;
-    $username = $_SESSION['username'];
-    // echo $username;
-    
-    // $email    = stripslashes($_REQUEST['email']);
-    // $position    = stripslashes($_REQUEST['position']);
-    // $email    = mysqli_real_escape_string($con, $email);
-    // $password = stripslashes($_REQUEST['password']);
-    // $password = mysqli_real_escape_string($con, $password);
-    // $create_datetime = date("Y-m-d H:i:s");
-    $query    = "INSERT into `answers` (answer, user, question)
-                 VALUES ('$answer', '$username', '$question')";
-    $resultw   = mysqli_query($con, $query);
-
-    if ($resultw) {
-      echo "<div class='form'>
-            <h3>You are registered successfully.</h3><br/>
-            <p class='link'>Click here to <a href='login.php'>Login</a></p>
-            </div>";
-  }
-
-    
-}
-
-
 
 
 ?>  
@@ -99,6 +62,44 @@ if (isset($_REQUEST['newanswer'])) {
 
     <div class="row">
 
+    <?php
+
+    
+
+if (isset($_REQUEST['newanswer'])) {
+  // removes backslashes
+  $answer = stripslashes($_REQUEST['newanswer']);
+  //escapes special characters in a string
+  $answer = mysqli_real_escape_string($con, $answer);
+  // echo $answer;
+
+    $question = $_SESSION['question'];
+    // echo $question;
+    // $result = 0;
+    $username = $_SESSION['username'];
+    // echo $username;
+    
+    // $email    = stripslashes($_REQUEST['email']);
+    // $position    = stripslashes($_REQUEST['position']);
+    // $email    = mysqli_real_escape_string($con, $email);
+    // $password = stripslashes($_REQUEST['password']);
+    // $password = mysqli_real_escape_string($con, $password);
+    // $create_datetime = date("Y-m-d H:i:s");
+    $query    = "INSERT into `answers` (answer, user, question) VALUES ('$answer', '$username', '$question')";
+    $result   = mysqli_query($con, $query);
+
+    if ($result) {
+      echo "Successfully Added";
+  }
+  else {
+    echo "<h1>this operation failed</h1>";
+  }
+
+    
+}
+
+?>
+
     
     
     </div>
@@ -146,7 +147,7 @@ if (isset($_REQUEST['newanswer'])) {
                         {
                         $result->data_seek($j);
                         $row = $result->fetch_array(MYSQLI_ASSOC);
-                        echo '<div class="card mx-4 py-4"><h4 class="card-title  mx-4">'.$row['answer'] .'   </h4><i class="ml-4">Asked by:  '. $row['user'].'  </i> <div class="card-body">   '."</div></div>
+                        echo '<div class="card mx-4 py-4"><h4 class="card-title  mx-4">'.$row['question'] .'   </h4><i class="ml-4">Authored by:  '. $row['user'].'  </i> <div class="card-body">   '."</div></div>
                         ". "<br>";
                         
 
