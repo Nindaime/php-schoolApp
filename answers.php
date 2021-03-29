@@ -210,7 +210,22 @@ if (isset($_REQUEST['comment'])) {
                                               }
                       
                                               else {
-                                                echo '<p>Lecturers comment </p>';
+                                                $answer = $row['answer'];
+
+
+
+                                                $query = "SELECT * FROM comments WHERE answer='$answer'";
+                        
+                                                $result = mysqli_query($con, $query) or die(mysql_error());
+                                                
+                                                $rows = $result->num_rows;
+                                                for ($j = 0 ; $j < $rows ; ++$j)
+                                                {
+                                                $result->data_seek($j);
+                                                $row = $result->fetch_array(MYSQLI_ASSOC);
+                                                echo '<div class="collapse" id="collapseExample"><p>'.$row['comment'].'</p></div>';
+
+                                                }
                                               }
                       
                       
@@ -266,7 +281,21 @@ if (isset($_REQUEST['comment'])) {
                                               }
                       
                                               else {
-                                                echo '<p>Lecturers comment </p>';
+                                                
+
+
+
+                                                $query = "SELECT * FROM comments WHERE answer='$answer'";
+                        
+                                                $result = mysqli_query($con, $query) or die(mysql_error());
+                                                
+                                                $rows = $result->num_rows;
+                                                for ($j = 0 ; $j < $rows ; ++$j)
+                                                {
+                                                $result->data_seek($j);
+                                                $row = $result->fetch_array(MYSQLI_ASSOC);
+                                                echo '<div class="collapse" id="collapseExample"><p>'.$row['comment'].'</p></div>';
+                                                }
                                               }
                       
                       

@@ -141,9 +141,10 @@ $_SESSION['role'] = 'lecturerdashboard.php';
 
             
             
-            <div class="col-lg-3 mt-5" >
+            <div class="col-lg-3 mt-5" style="position: relative;">
+                <div class="" style="position: absolute; top: 0;">
                 <h4 class="mb-5 text-center">ADD A NEW COURSE</h4>
-                <form action="" method="post" class="">
+                <form action="" method="post" class="card p-4">
                     <div class="form-group">
                         <label for="title">Course Title</label>
                         <input type="text" name="title" class="form-control" id="title" placeholder="Course Title" required>
@@ -151,6 +152,7 @@ $_SESSION['role'] = 'lecturerdashboard.php';
                     
                     <button style="background-color: purple; border:none;" type="submit" name="submit" class="btn btn-primary"><a style="color: white">Submit</a></button>
                 </form>
+                </div>
             </div>
 
             
