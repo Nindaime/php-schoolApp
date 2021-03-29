@@ -4,9 +4,9 @@ include("auth_session.php");
 
 require('db.php');
 
-if (isset($_REQUEST['question'])) {
-  $question = stripslashes($_REQUEST['question']);    // 
-  $_SESSION['question'] = $question;
+if (isset($_REQUEST['answer'])) {
+  $answer = stripslashes($_REQUEST['answer']);    // 
+  $_SESSION['answer'] = $answer;
 }
 
 
@@ -54,9 +54,9 @@ if (isset($_REQUEST['question'])) {
     
     <div class="container mt-5 mx-auto">
     <div class="row my-5">
-    <h1 class="mt-5 pt-5">Question: <?php
+    <h1 class="mt-5 pt-5">Answer: <?php
          
-    echo $_SESSION['question'];
+    echo $_SESSION['answer'];
      ?></h1>
     </div>
 
@@ -66,14 +66,14 @@ if (isset($_REQUEST['question'])) {
 
     
 
-if (isset($_REQUEST['newanswer'])) {
+if (isset($_REQUEST['comment'])) {
   // removes backslashes
-  $answer = stripslashes($_REQUEST['newanswer']);
+  $comment = stripslashes($_REQUEST['comment']);
   //escapes special characters in a string
-  $answer = mysqli_real_escape_string($con, $answer);
+  $comment = mysqli_real_escape_string($con, $comment);
   // echo $answer;
 
-    $question = $_SESSION['question'];
+    $answer = $_SESSION['answer'];
     // echo $question;
     // $result = 0;
     $username = $_SESSION['username'];
@@ -85,7 +85,7 @@ if (isset($_REQUEST['newanswer'])) {
     // $password = stripslashes($_REQUEST['password']);
     // $password = mysqli_real_escape_string($con, $password);
     // $create_datetime = date("Y-m-d H:i:s");
-    $query    = "INSERT into `answers` (answer, user, question) VALUES ('$answer', '$username', '$question')";
+    $query    = "INSERT into `comments` (answer, comment) VALUES ('$answer', '$comment')";
     $result   = mysqli_query($con, $query);
 
     if ($result) {
@@ -95,43 +95,6 @@ if (isset($_REQUEST['newanswer'])) {
     echo "<h1>this operation failed</h1>";
   }
 
-}
-
-if (isset($_REQUEST['comment'])) {
-  // removes backslashes
-  $comment = stripslashes($_REQUEST['comment']);
-  //escapes special characters in a string
-  $comment = mysqli_real_escape_string($con, $comment);
-
-  // removes backslashes
-  $answerd = stripslashes($_REQUEST['answerd']);
-  //escapes special characters in a string
-  $answerd = mysqli_real_escape_string($con, $answerd);
-  // echo $answer;
-
-    
-    // echo $question;
-    // $result = 0;
-    // $username = $_SESSION['username'];
-    // echo $username;
-    
-    // $email    = stripslashes($_REQUEST['email']);
-    // $position    = stripslashes($_REQUEST['position']);
-    // $email    = mysqli_real_escape_string($con, $email);
-    // $password = stripslashes($_REQUEST['password']);
-    // $password = mysqli_real_escape_string($con, $password);
-    // $create_datetime = date("Y-m-d H:i:s");
-    $query    = "INSERT into `comments` (answer, comment) VALUES ('$answerd', '$comment')";
-    $result   = mysqli_query($con, $query);
-
-    if ($result) {
-      echo "Successfully Added";
-  }
-  else {
-    echo "<h1>this operation failed</h1>";
-  }
-
-    
 }
 
 ?>
@@ -143,38 +106,42 @@ if (isset($_REQUEST['comment'])) {
 
 
         <div class="row mt-5">
+            <?php
             
-            <div class="col-md-4 mt-5">
-                <h2 class="mb-5">Answer Here</h2>
+            if($_SESSION['role'] == 'lecturerdashboard.php'){
+
+                echo '<div class="col-md-4 mt-5">
+                <h2 class="mb-5">Comment Here</h2>
                 <form action="" method="post">
                     <div class="form-group">
-                        <label for="newanswer">TYPE YOUR ANSWERS</label>
+                        <label for="comment">TYPE YOUR COMMENTS</label>
                         
-                        <textarea id="newanswer" name="newanswer" class="form-control" placeholder="Course Title" required rows="4" cols="50"></textarea>
+                        <textarea id="comment" name="comment" class="form-control" placeholder="Lecturers Comment" required rows="4" cols="50"></textarea>
                     </div>
                     
                     <button type="submit" name="submit" class="btn btn-primary"><a style="color: white">Submit</a></button>
                 </form>
-            </div>
-
+            </div>';
+            }
+?>
             <div class="col-md-8 d-flex mt-5">
             
                 <div class="center mx-auto">
 
                 <h2 class="mb-5 text-capitalize">All Comments</h2>
                     <?php
-                    if (isset($_REQUEST['question'])) {
-                            $question = stripslashes($_REQUEST['question']);    // removes backslashes
-                            $question = mysqli_real_escape_string($con, $question);
+                    if (isset($_REQUEST['answer'])) {
+                            $answer = stripslashes($_REQUEST['answer']);    // removes backslashes
+                            $answer = mysqli_real_escape_string($con, $answer);
 
                             
                         
                         
                         $username = $_SESSION['username'];
-                        $_SESSION['question'] = $question;
+                        $_SESSION['answer'] = $answer;
                         
                         
-                        $query = "SELECT * FROM answers WHERE question='$question'";
+                        $query = "SELECT * FROM comments WHERE answer='$answer'";
                         
                         $result = mysqli_query($con, $query) or die(mysql_error());
                         
@@ -183,15 +150,11 @@ if (isset($_REQUEST['comment'])) {
                         {
                         $result->data_seek($j);
                         $row = $result->fetch_array(MYSQLI_ASSOC);
-                        echo '<div class="card mx-4 py-4"><h4 class="card-title  mx-4">'.$row['answer'] .'   </h4><i class="ml-4">Authored by:  '. $row['user'].'  </i> <div class="card-body">   '."<form class='form' action='comments.php' method='post'>
-                        <input type='hidden' id='' name='answer' value='". $row['answer']. "'>
-                        <input type='submit' name='submit' value='View Comments' class='login-button'>
-                        </form>";
+                        echo '<div class="card mx-4 py-4"><p class="card-title  mx-4">'.$row['comment'] .'   </p>';
 
                      
                       
-                      echo "</div></div>
-                        ". "<br>";
+                      echo "</div><br>";
 
                         
                         
@@ -202,10 +165,10 @@ if (isset($_REQUEST['comment'])) {
                     else {
 
                         $username = $_SESSION['username'];
-                        $question = $_SESSION['question'];
+                        $answer = $_SESSION['answer'];
                         
                         
-                        $query = "SELECT * FROM answers WHERE question='$question'";
+                        $query = "SELECT * FROM comments WHERE answer='$answer'";
                         
                         $result = mysqli_query($con, $query) or die(mysql_error());
                         
@@ -214,15 +177,11 @@ if (isset($_REQUEST['comment'])) {
                         {
                         $result->data_seek($j);
                         $row = $result->fetch_array(MYSQLI_ASSOC);
-                        echo '<div class="card mx-4 py-4"><h4 class="card-title  mx-4">'.$row['answer'] .'   </h4><i class="ml-4">Authored by:  '. $row['user'].'  </i> <div class="card-body">   '."<form class='form' action='commennts.php' method='post'>
-                        <input type='hidden' id='' name='answer' value='". $row['answer']. "'>
-                        <input type='submit' name='submit' value='View Comments' class='login-button'>
-                        </form>";
+                        echo '<div class="card mx-4 py-4"><p class="card-title  mx-4">'.$row['comment'] .'   </p>';
 
                       
                       
-                      echo "</div></div>
-                        ". "<br>";
+                      echo "</div><br>";
 
                         
                         
