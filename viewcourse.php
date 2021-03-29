@@ -11,7 +11,7 @@
 
             <div class="container-fluid bg-transparent w-100 p-0">
             <nav style="background-color: purple;" class="navbar navbar-expand-md navbar-light px-0 w-100 px-5">
-                <a style="font-size: 2rem" class="navbar-brand px-4 display-7" href="#">SchoolApp</a>
+                <a style="color: white" class="font-weight-bold navbar-brand px-4 display-7" href="#">SchoolApp</a>
                 <button class="navbar-toggler mr-2" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
                 </button>
@@ -19,16 +19,16 @@
                 <div class="collapse navbar-collapse w-100" id="navbarSupportedContent">
                   <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                      <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                      <a style="background-color:purple; color:white;" class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                     </li>
     
                     
                     
-                    <li class="nav-item mx-5">
-                      <a style="background-color:purple; color:white;" class="font-weight-bold nav-link"  href="logout.php">LOGOUT</a>
+                    <li class="nav-item">
+                      <a style="background-color:purple; color:white;" class=" nav-link"  href="logout.php">LOGOUT</a>
                     </li>
-                    <li class="nav-item mx-5">
-                      <a style="background-color:purple; color:white;" class="font-weight-bold nav-link"  href="javascript:history.go(-1)">BACK TO DASHBOARD</a>
+                    <li class="nav-item">
+                      <a style="background-color:purple; color:white;" class=" nav-link"  href="javascript:history.go(-1)">BACK TO DASHBOARD</a>
                     </li>
                   </ul>
                   
@@ -69,9 +69,7 @@
                         $row = $result->fetch_array(MYSQLI_ASSOC);
                         echo '<div class="d-flex">'.'<div class="my-4 mx-auto row d-flex card px-4"><h3 class="card-header my-3 text-capitalize">'.$row['topic'].'</h3>'.'
                         <div class="video card-img-top">'.
-                        '<video width="560" height="320" controls>
-                        <source src="'. $row['video'].'" type="video/mp4">
-                      Your browser does not support the video tag.
+                        '<video src="'. $row['video'].'" width="560" height="320" controls>
                       </video>'
                         .'</div>
                         <div class="">'.

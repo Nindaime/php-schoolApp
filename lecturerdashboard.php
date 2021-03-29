@@ -32,7 +32,7 @@ $_SESSION['role'] = 'lecturerdashboard.php';
                 </button>
               
                 <div class="collapse navbar-collapse w-100" id="navbarSupportedContent">
-                  <ul class="navbar-nav ml-auto">
+                  <ul class="navbar-nav">
 
                   <li class="nav-item active">
                 <a class="nav-link" href="#">Welcome, <?php echo $_SESSION['username']; ?>   |</a>
@@ -93,8 +93,7 @@ $_SESSION['role'] = 'lecturerdashboard.php';
     
     
     
-    <div class="container">
-        
+      
           
             
             
@@ -103,12 +102,12 @@ $_SESSION['role'] = 'lecturerdashboard.php';
 <div class="container">
         <div class="row mt-5">
 
-        <div class="col-lg-8 d-flex mt-5">
+        <div class="col-lg-9 d-flex mt-5" >
             
-                <div class="center mx-auto">
+                <div class="center">
 
                 <h4 class="mb-3 text-center">MY COURSES</h4>
-                <div class="grid-container2">
+                <div class="grid-container2 fs-6 text">
                     <?php
                         $username = $_SESSION['username'];
                         $query = "SELECT * FROM courses WHERE user='$username'";
@@ -120,14 +119,14 @@ $_SESSION['role'] = 'lecturerdashboard.php';
                         {
                         $result->data_seek($j);
                         $row = $result->fetch_array(MYSQLI_ASSOC);
-                        echo '<div class="card grid-item mx-4 py-4"><h4 class="text-capitalize card-title mx-4">'.$row['title'] .'   </h4> <div class="">   '. "
+                        echo '<div class="grid-item2 py-4"><p class="text-capitalize">'.$row['title'] .'   </p> <div class="">   '. "
                         <form class='form' action='viewcourse.php' method='post'>
                         <input type='hidden' id='' name='course' value='". $row['title']. "'>
-                        <input style='background-color: gray; border:none; color:white;'  type='submit' name='submit' value='Open course' class='login-button btn'>
+                        <input style='background-color: gray; border:none; color:white;'  type='submit' name='submit' value='Open course' class='btn-sm login-button btn'>
                         </form>"."<br>"
                         ."<form class='form' action='topicsform.php' method='post'>
                         <input type='hidden' id='' name='title' value='". $row['title']. "'>
-                        <input style='background-color: gray; border:none; color:white;' type='submit' name='submit' value='Add new topic' class='login-button btn'>
+                        <input style='background-color: gray; border:none; color:white;' type='submit' name='submit' value='Add new topic' class='btn-sm login-button btn'>
                         </form>"."</div></div>
                         ";
                         
@@ -142,9 +141,9 @@ $_SESSION['role'] = 'lecturerdashboard.php';
 
             
             
-            <div class="col-lg-4 mt-5">
+            <div class="col-lg-3 mt-5" >
                 <h4 class="mb-5 text-center">ADD A NEW COURSE</h4>
-                <form action="" method="post" class="card p-5">
+                <form action="" method="post" class="">
                     <div class="form-group">
                         <label for="title">Course Title</label>
                         <input type="text" name="title" class="form-control" id="title" placeholder="Course Title" required>
@@ -161,7 +160,7 @@ $_SESSION['role'] = 'lecturerdashboard.php';
     </div>
 
 
-</div>
+
 <script src="./jquery-3.5.1.min.js" ></script>
 <script src="./bootstrap.min.js"></script>
 </body>

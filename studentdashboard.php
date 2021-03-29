@@ -27,7 +27,7 @@ $_SESSION['role'] = 'studentdashboard.php';
                 </button>
               
                 <div class="collapse navbar-collapse w-100" id="navbarSupportedContent">
-                  <ul class="navbar-nav ml-auto">
+                  <ul class="navbar-nav">
                     <li class="nav-item active">
                       <a class="nav-link" href="#">Welcome, <?php echo $_SESSION['username']; ?>! <span class="sr-only">(current)</span></a>
                     </li>
