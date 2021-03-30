@@ -97,6 +97,36 @@ if (isset($_REQUEST['course'])) {
               </div>";
     } 
 }
+
+if (isset($_REQUEST['delete'])) {
+    // $result = 0;
+    $username = $_SESSION['username'];
+    // removes backslashes
+    $delete = stripslashes($_REQUEST['delete']);
+    //escapes special characters in a string
+    $delete = mysqli_real_escape_string($con, $delete);
+    // $email    = stripslashes($_REQUEST['email']);
+    // $position    = stripslashes($_REQUEST['position']);
+    // $email    = mysqli_real_escape_string($con, $email);
+    // $password = stripslashes($_REQUEST['password']);
+    // $password = mysqli_real_escape_string($con, $password);
+    // $create_datetime = date("Y-m-d H:i:s");
+    $query    = "DELETE FROM courses WHERE title = '" .$delete."'AND user = '" .$username."'";
+    $result   = mysqli_query($con, $query);
+    if ($result) {
+        echo "<div class='container'><div class=' pt-5 text-center'>
+              <h3 class='-5'>Deleted successfully.</h3><br/>
+              <p class='link'>Click here to <a href='studentdashboard.php'>Refresh Dashboard</a></p>
+              </div></div>";
+    } else {
+        echo "<div class='pt-5 text-center'>
+              <h3 class='mt-5 pt-5'>Delete Failed.</h3><br/>
+              <p class='link'>Click here to <a href='studentdashboard.php'>Back to Dashboard</a> again.</p>
+              </div>";
+    }
+}
+
+
         ?>
 
         <div class="row mt-5">
@@ -116,9 +146,13 @@ if (isset($_REQUEST['course'])) {
                         $result->data_seek($j);
                         $row = $result->fetch_array(MYSQLI_ASSOC);
                         echo "<div  class='grid-item'><h6 class='text-capitalize'>".$row['title'] ."</h6>
-                        <form class='form' action='viewcourse.php' method='post'>
+                        <form class='form mt-4' action='viewcourse.php' method='post'>
                         <input type='hidden' id='' name='course' value='". $row['title']. "'>
-                        <input type='submit' name='submit' value='Open course' class='login-button'>
+                        <input style='color:white; background-color:purple; border:none; border-radius:1rem' type='submit' name='submit' value='Open course' class='px-2 py-1 login-button'>
+                        </form>
+                        <form class='form mt-2' action='' method='post'>
+                        <input type='hidden' id='' name='delete' value='". $row['title']. "'>
+                        <input style='color:red' type='submit' name='submit' value='Unregister course' class='login-button'>
                         </form>
                         "."<br></div>";
                         }
