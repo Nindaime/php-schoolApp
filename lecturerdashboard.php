@@ -32,7 +32,7 @@ $_SESSION['role'] = 'lecturerdashboard.php';
                 </button>
               
                 <div class="collapse navbar-collapse w-100" id="navbarSupportedContent">
-                  <ul class="navbar-nav">
+                  <ul class="navbar-nav ml-auto">
 
                   <li class="nav-item active">
                 <a class="nav-link" href="#">Welcome, <?php echo $_SESSION['username']; ?>   |</a>
@@ -87,6 +87,35 @@ $_SESSION['role'] = 'lecturerdashboard.php';
         }
     }
 
+
+    if (isset($_REQUEST['delete'])) {
+        // $result = 0;
+        $username = $_SESSION['username'];
+        // removes backslashes
+        $delete = stripslashes($_REQUEST['delete']);
+        //escapes special characters in a string
+        $delete = mysqli_real_escape_string($con, $delete);
+        // $email    = stripslashes($_REQUEST['email']);
+        // $position    = stripslashes($_REQUEST['position']);
+        // $email    = mysqli_real_escape_string($con, $email);
+        // $password = stripslashes($_REQUEST['password']);
+        // $password = mysqli_real_escape_string($con, $password);
+        // $create_datetime = date("Y-m-d H:i:s");
+        $query    = "DELETE FROM courses WHERE title = '" .$delete."'";
+        $result   = mysqli_query($con, $query);
+        if ($result) {
+            echo "<div class='container'><div class=' pt-5 text-center'>
+                  <h3 class='-5'>Deleted successfully.</h3><br/>
+                  <p class='link'>Click here to <a href='lecturerdashboard.php'>Refresh Dashboard</a></p>
+                  </div></div>";
+        } else {
+            echo "<div class='pt-5 text-center'>
+                  <h3 class='mt-5 pt-5'>Delete Failed.</h3><br/>
+                  <p class='link'>Click here to <a href='lecturerdashboard.php'>Back to Dashboard</a> again.</p>
+                  </div>";
+        }
+    }
+
         ?>
 
         </div>
@@ -119,10 +148,15 @@ $_SESSION['role'] = 'lecturerdashboard.php';
                         {
                         $result->data_seek($j);
                         $row = $result->fetch_array(MYSQLI_ASSOC);
-                        echo '<div class="grid-item2 py-4"><p class="text-capitalize">'.$row['title'] .'   </p> <div class="">   '. "
+                        echo '<div class="grid-item2">
+                        <form class="form d-flex" action="" method="post">' . "
+                        <input type='hidden' id='' name='delete' value='". $row['title']. "'>
+                        <input style='background-color: gray; border:none; color:white;'  type='submit' name='submit' value='X' class='btn-sm login-button btn ml-auto'>
+</form>". 
+                        '<p class="my-4 text-capitalize">'.$row['title'] .'   </p> <div class="">   '. "
                         <form class='form' action='viewcourse.php' method='post'>
                         <input type='hidden' id='' name='course' value='". $row['title']. "'>
-                        <input style='background-color: gray; border:none; color:white;'  type='submit' name='submit' value='Open course' class='btn-sm login-button btn'>
+                        <input style='background-color: purple; border:none; color:white;'  type='submit' name='submit' value='Open course' class='btn-sm login-button btn'>
                         </form>"."<br>"
                         ."<form class='form' action='topicsform.php' method='post'>
                         <input type='hidden' id='' name='title' value='". $row['title']. "'>
