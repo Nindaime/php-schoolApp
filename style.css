@@ -7,6 +7,9 @@ body {
     padding: 30px 25px;
     background: white;
 }
+.topic-button{
+    width: 165px !important;
+}
 h1.login-title {
     color: red;
     margin: 0px auto 25px;

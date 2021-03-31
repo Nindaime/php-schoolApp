@@ -8,7 +8,7 @@ if(isset($_POST['but_upload'])){
    if(isset($_FILES['file']['name']) && $_FILES['file']['name'] != ''){
        $name = $_FILES['file']['name'];
        $target_dir = "videos/";
-       $target_file = $target_dir . $_FILES["file"]["name"];
+       $target_file = $target_dir . $name;
 
        // Select file type
        $extension = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
@@ -23,6 +23,9 @@ if(isset($_POST['but_upload'])){
           if(($_FILES['file']['size'] >= $maxsize) || ($_FILES["file"]["size"] == 0)) {
             $_SESSION['message'] = "File too large. File must be less than 500MB.";
           }else{
+    		if(!file_exists($target_dir)){
+    			mkdir($target_dir, 0777, true);
+    		}
              // Upload
             if(move_uploaded_file($_FILES['file']['tmp_name'],$target_file)){
               // Insert record

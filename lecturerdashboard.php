@@ -136,7 +136,7 @@ $_SESSION['role'] = 'lecturerdashboard.php';
                 <div class="center">
 
                 <h4 class="mb-3 text-center">MY COURSES</h4>
-                <div class="grid-container2 fs-6 text">
+                <div class="grid-container2 text">
                     <?php
                         $username = $_SESSION['username'];
                         $query = "SELECT * FROM courses WHERE user='$username'";
@@ -144,26 +144,29 @@ $_SESSION['role'] = 'lecturerdashboard.php';
                         $result = mysqli_query($con, $query) or die(mysql_error());
                         
                         $rows = $result->num_rows;
-                        for ($j = 0 ; $j < $rows ; ++$j)
-                        {
-                        $result->data_seek($j);
-                        $row = $result->fetch_array(MYSQLI_ASSOC);
-                        echo '<div class="grid-item2">
-                        <form class="form d-flex" action="" method="post">' . "
-                        <input type='hidden' id='' name='delete' value='". $row['title']. "'>
-                        <input style='background-color: gray; border:none; color:white;'  type='submit' name='submit' value='X' class='btn-sm login-button btn ml-auto'>
-</form>". 
-                        '<p class="my-4 text-capitalize">'.$row['title'] .'   </p> <div class="">   '. "
-                        <form class='form' action='viewcourse.php' method='post'>
-                        <input type='hidden' id='' name='course' value='". $row['title']. "'>
-                        <input style='background-color: purple; border:none; color:white;'  type='submit' name='submit' value='Open course' class='btn-sm login-button btn'>
-                        </form>"."<br>"
-                        ."<form class='form' action='topicsform.php' method='post'>
-                        <input type='hidden' id='' name='title' value='". $row['title']. "'>
-                        <input style='background-color: gray; border:none; color:white;' type='submit' name='submit' value='Add new topic' class='btn-sm login-button btn'>
-                        </form>"."</div></div>
-                        ";
-                        
+                        for ($j = 0 ; $j < $rows ; ++$j){
+                            $result->data_seek($j);
+                            $row = $result->fetch_array(MYSQLI_ASSOC);
+                            echo 
+                                '<div class="grid-item2">
+                                    <form class="form d-flex" action="" method="post">' . "
+                                        <input type='hidden' id='' name='delete' value='". $row['title']. "'>
+                                        <input style='background-color: #cc0000; border:none; color:white;'  type='submit' name='submit' value='X' class='btn-sm login-button btn ml-auto'>
+                                    </form>". 
+                                    '<p class="my-2 text-capitalize">'.$row['title'] .'   </p> <div class="">   '. "
+                                    
+                                    <form class='form' action='viewcourse.php' method='post'>
+                                        <input type='hidden' id='' name='course' value='". $row['title']. "'>
+                                        <input style='background-color: purple; border:none; color:white;'  type='submit' name='submit' value='Open course' class='btn-sm login-button btn'>
+                                    </form>"
+                                    ."<br>".
+                                    "<form class='form' action='topicsform.php' method='post'>
+                                        <input type='hidden' id='' name='title' value='". $row['title']. "'>
+                                        <input style='background-color: #33cc33; border:none; color:white;' type='submit' name='submit' value='Add new topic' class='btn-sm login-button btn'>
+                                    </form>".
+                                "</div>
+                    </div>";
+                            
 
                         }
                     ?>
@@ -177,7 +180,7 @@ $_SESSION['role'] = 'lecturerdashboard.php';
             
             <div class="col-lg-3 mt-5" style="position: relative;">
                 <div class="" style="position: absolute; top: 0;">
-                <h4 class="mb-5 text-center">ADD A NEW COURSE</h4>
+                <h4 class="mb-3 text-center">ADD A NEW COURSE</h4>
                 <form action="" method="post" class="card p-4">
                     <div class="form-group">
                         <label for="title">Course Title</label>

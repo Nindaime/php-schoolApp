@@ -67,20 +67,28 @@
                         {
                         $result->data_seek($j);
                         $row = $result->fetch_array(MYSQLI_ASSOC);
-                        echo '<div class="d-flex">'.'<div class="my-4 mx-auto row d-flex card px-4"><h3 class="card-header my-3 text-capitalize">'.$row['topic'].'</h3>'.'
-                        <div class="video card-img-top">'.
-                        '<video src="'. $row['video'].'" width="560" height="320" controls>
-                      </video>'
-                        .'</div>
-                        <div class="">'.
+                        echo '
+                        <div class="d-flex grid-container2">'.
+                            '<div class="my-4 mx-auto row d-flex card px-4">
+                                <h3 class="card-header my-3 text-capitalize">'.$row['topic'].'</h3>'.'
+                            <div class="video card-img-top">'.
+                                '<video src="'. $row['video'].'" width="520" height="320" controls>
+                                </video>'
+                            .'</div>
 
-                        "<form class='form d-flex' action='questions.php' method='post'>
-                            <input type='hidden' id='' name='topic' value='". $row['topic']. "'>
-                            <input style='background-color:purple; color:white' class='btn btn-block' type='submit' name='questions' value='Questions Here' class='px-4 btn-secondary rounded'>
-                        </form>".
-                            
-                        '</div>
-                        </div></div>';
+                            <div class="d-flex">'.
+
+                                "<form class='form topic-button' action='questions.php' method='post'>
+                                    <input type='hidden' id='' name='topic' value='". $row['topic']. "'>
+                                    <input style='background-color:purple; color:white' class='btn btn' type='submit' name='questions' value='Questions Here' class='px-4 btn-secondary rounded'>
+                                </form>
+                                <form class='form topic-button' action='' method='post'>
+                                    <input type='hidden' id='' name='delete' value='". $row['title']. "'>
+                                    <input style='background-color: #cc0000; border:none; color:white;'  type='submit' name='submit' value='Delete Topic' class='btn ml-auto'>
+                                </form>".
+                            '</div>
+                            </div>
+                        </div>';
                         }
                         
     } 
